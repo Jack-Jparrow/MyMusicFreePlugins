@@ -375,7 +375,8 @@ async function importMusicSheet(urlLike) {
         withCredentials: true,
     })).data;
     const res = JSON.parse(result.replace(/callback\(|MusicJsonCallback\(|jsonCallback\(|\)$/g, ""));
-    return res.cdlist[0].songlist.filter(validSongFilter).map(formatMusicItem);
+    // return res.cdlist[0].songlist.filter(validSongFilter).map(formatMusicItem);
+    return res.cdlist[0].songlist.map(formatMusicItem);
 }
 async function getTopLists() {
     const list = await (0, axios_1.default)({
