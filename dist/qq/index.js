@@ -90,7 +90,8 @@ async function searchMusic(query, page) {
     const songs = await searchBase(query, page, 0);
     return {
         isEnd: songs.isEnd,
-        data: songs.data.filter(validSongFilter).map(formatMusicItem),
+        // data: songs.data.filter(validSongFilter).map(formatMusicItem),
+        data: songs.data.map(formatMusicItem),
     };
 }
 async function searchAlbum(query, page) {
@@ -296,7 +297,8 @@ async function getArtistSongs(artistItem, page) {
     })).data;
     return {
         isEnd: res.singer.data.total_song <= page * pageSize,
-        data: res.singer.data.songlist.filter(validSongFilter).map(formatMusicItem),
+        // data: res.singer.data.songlist.filter(validSongFilter).map(formatMusicItem),
+        data: res.singer.data.songlist.map(formatMusicItem),
     };
 }
 async function getArtistAlbums(artistItem, page) {
@@ -410,8 +412,10 @@ async function getTopListDetail(topListItem) {
         xsrfCookieName: "XSRF-TOKEN",
         withCredentials: true,
     });
+    // return Object.assign(Object.assign({}, topListItem), { musicList: res.data.detail.data.songInfoList
+    //         .filter(validSongFilter)
+    //         .map(formatMusicItem) });
     return Object.assign(Object.assign({}, topListItem), { musicList: res.data.detail.data.songInfoList
-            .filter(validSongFilter)
             .map(formatMusicItem) });
 }
 async function getRecommendSheetTags() {
